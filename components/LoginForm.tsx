@@ -78,17 +78,17 @@ export default function LoginForm({ dbHost }: LoginFormProps) {
                      okColor: "bg-red-600 hover:bg-red-700"
                  });
      
-                 // If invalid credentials, maybe connection is fine but data is wrong
-                 // But if error is weird, run debug
+                 // Run diagnostics even on "Invalid email" to rule out connecting to wrong DB
+                 const diagnosis = await checkDbConnection();
+                 if (!diagnosis.success) {
+                     setDebugInfo(`DB Error: ${diagnosis.error} (Code: ${diagnosis.code})`);
+                 } else {
+                     setDebugInfo(`DB Connected: ${diagnosis.data?.current_database} @ ${diagnosis.env?.host} (User: ${diagnosis.data?.current_user})`);
+                 }
+
                  if (errorMsg.includes("Invalid")) {
                     passwordRef.current?.focus();
                     passwordRef.current?.select();
-                 } else {
-                    // Try to diagnose connection
-                    const diagnosis = await checkDbConnection();
-                    if (!diagnosis.success) {
-                        setDebugInfo(`DB Error: ${diagnosis.error} (Code: ${diagnosis.code})`);
-                    }
                  }
              }
          });

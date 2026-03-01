@@ -4,7 +4,7 @@ const globalForPool = global as unknown as { pool: Pool };
 
 // Determine if we are in a serverless environment (Vercel)
 const isServerless = process.env.VERCEL === '1';
-
+ 
 const connectionConfig = {
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 5432),
