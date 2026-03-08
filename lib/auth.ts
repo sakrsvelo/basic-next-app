@@ -33,7 +33,7 @@ export const authOptions = {
     baseURL: process.env.BETTER_AUTH_URL, // Add this in Vercel env
     trustedOrigins: [
         "http://localhost:3000",
-        "https://basicnextapp.vercel.app",
+        "https://basic-next-app-nu.vercel.app",
     ],
     // advanced: {
     //     trustHost: true, // Important for Vercel proxy headers
